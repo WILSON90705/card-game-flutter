@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # casino_flutter
 
 A new Flutter project.
@@ -14,3 +15,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+#portafolio wilson tarrifa ramirez 
+
+### 👩‍💻👨‍💻
+Desarrollador backend
+Autor wilsonhacker90
+>>>>>>> c04a9c010c596d177df36564d09d6cb87d2450f0

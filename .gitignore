@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Miscellaneous
 *.class
 *.log
@@ -43,3 +44,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+=======
+.env
+.env
+Variables.env
+.env
+Variables.env
+# Archivos temporales
+tempCodeRunnerFile.*
+*.pyc
+__pycache__/
+.env
+>>>>>>> c04a9c010c596d177df36564d09d6cb87d2450f0
