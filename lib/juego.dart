@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 List<String> baraja = [
   'assets/image/Back Blue.png',
@@ -58,10 +59,9 @@ List<String> baraja = [
 ];
 
 int continuar = 0;
-
 List<String> baraja2 = [];
-List<List<String>> jugador1 = [];
-List<List<String>> jugador2 = [];
+List<String> jugador1 = [];
+List<String> jugador2 = [];
 
 class Juego extends StatefulWidget {
   const Juego({super.key});
@@ -71,83 +71,82 @@ class Juego extends StatefulWidget {
 }
 
 class _JuegoState extends State<Juego> {
+  final Random random = Random();
   @override
   void initState() {
     super.initState();
-    jugador1.add([]);
-    jugador2.add([]);
+    jugador1.clear();
     baraja2 = List.from(baraja);
-    baraja2.shuffle();
-    for (int i = 0; i < 5; i++) {
-      jugador1[i].add(baraja2.removeAt(0));
-      jugador2[i].add(baraja2.removeAt(0));
+    for (int i = 1; i <= 6; i++) {
+      jugador1.add(baraja2[i]);
     }
+
+    jugador1.shuffle();
   }
 
-  Future<int> Numerodejugadores(BuildContext context, int continuar) async {
-    if (continuar == 1) {
-    } else if (continuar == 2) {}
-    return 0;
+  Future<void> enviar_carta(String carta) {
+    try {} catch (e) {
+      print("Error: $e");
+    }
+    return Future.value(carta);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: 1000,
-        height: 1000,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/image/meza_poker.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          alignment: Alignment.center, // centro de la mesa
-          children: [
-            // MAZO CENTRADO
-            SizedBox(
-              width: 250,
-              height: 250,
-              child: Stack(
-                children: [
-                  for (int i = 0; i < baraja2.length; i++)
-                    Positioned(
-                      top: i * 0.5,
-                      left: i * 0.5,
-                      child: Image.asset(baraja2[i], width: 150),
-                    ),
-                ],
-              ),
+      body: Center(
+        child: Container(
+          width: 1000,
+          height: 1000,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30), // 👈 AQUÍ
+            image: const DecorationImage(
+              image: AssetImage('assets/image/meza_poker.jpg'),
+              fit: BoxFit.cover,
             ),
-            Scaffold(
-              appBar: AppBar(title: const Text('Poker')),
-              drawer: Drawer(
-                child: ListView(
+          ),
+          clipBehavior: Clip.antiAlias, // 👈 MUY IMPORTANTE
+          child: Stack(
+            alignment: Alignment.center, // centro de la mesa
+            children: [
+              // MAZO CENTRADO
+              SizedBox(
+                width: 250,
+                height: 250,
+                child: Stack(
                   children: [
-                    DrawerHeader(
-                      decoration: BoxDecoration(),
-                      child: const Text('Menu'),
-                    ),
-                    ListTile(
-                      title: Text('Jugador 1 '),
-                      onTap: () {
-                        continuar = 1;
-                        Numerodejugadores(context, continuar);
-                      },
-                    ),
-                    ListTile(
-                      title: Text('Jugador 2 '),
-                      onTap: () {
-                        continuar = 2;
-                        Numerodejugadores(context, continuar);
-                      },
-                    ),
+                    for (int i = 0; i < baraja2.length; i++)
+                      Positioned(
+                        top: i * 0.5,
+                        left: i * 0.5,
+                        child: Image.asset(baraja2[i], width: 150),
+                      ),
                   ],
                 ),
               ),
-            ),
-          ],
+              // MANO JUGADOR 1
+              Positioned(
+                bottom: 50,
+                child: SizedBox(
+                  height: 140,
+                  width:
+                      jugador1.length * 30.0 + 100, // ← ESTO ES LO IMPORTANTE
+                  child: Stack(
+                    children: [
+                      for (int i = 0; i < jugador1.length; i++)
+                        Positioned(
+                          left: i * 30.0,
+                          child: GestureDetector(
+                            onTap: () => enviar_carta(jugador1[i]),
+                            child: Image.asset(jugador1[i], width: 100),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

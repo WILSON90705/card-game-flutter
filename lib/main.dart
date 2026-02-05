@@ -35,9 +35,6 @@ class _CasinoAppState extends State<CasinoApp> {
         }),
       );
 
-      print('STATUS: ${response.statusCode}');
-      print('BODY: ${response.body}');
-
       if (!mounted) return;
 
       if (response.statusCode == 200) {
